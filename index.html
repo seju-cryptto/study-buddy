@@ -118,6 +118,12 @@
 
       <ul id="taskList"></ul>
       <p id="taskCount">Tasks remaining: 0</p>
+      <div style="margin-top: 18px;">
+  <p id="progressText">Daily Progress: 0%</p>
+  <div style="background:#eee5ff;border-radius:20px;height:16px;overflow:hidden;">
+    <div id="progressBar" style="width:0%;height:100%;background:#a88be3;border-radius:20px;transition:width 0.3s;"></div>
+  </div>
+</div>
     </section>
 
     <section class="card">
@@ -150,6 +156,18 @@
       });
 
       taskCount.textContent = "Tasks remaining: " + remaining;
+      const total = tasks.length;
+const completed = total - remaining;
+
+const percentage = total === 0
+  ? 0
+  : Math.round((completed / total) * 100);
+
+document.getElementById("progressText").textContent =
+  "Daily Progress: " + percentage + "%";
+
+document.getElementById("progressBar").style.width =
+  percentage + "%";
     }
 
     function addTask() {
