@@ -171,12 +171,46 @@ body.dark-mode #savedNotes > div {
   background: var(--card);
   border-color: var(--border);
 }
+.stickers {
+  font-size: 28px;
+  text-align: center;
+  padding: 15px;
+  margin: 12px auto;
+  background: linear-gradient(135deg, #f5edff, #fff5fb);
+  border: 2px solid #e7dcfa;
+  border-radius: 25px;
+  box-shadow: 0 5px 18px #c8b4f555;
+  animation: floaty 3s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+h1 {
+  text-align: center;
+  color: #8064b5;
+  font-size: 36px;
+  padding: 25px 15px;
+  margin: 20px 0;
+  background: linear-gradient(135deg, #f0e6ff, #fff0f8, #eee8ff);
+  border: 2px solid #e2d4fa;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px #bba0e655;
+}
+
   </style>
 </head>
 
 <body>
   <header>
-    <h1>StudyBuddy 💜</h1>
+    
+<h1>🌷 Welcome to StudyBuddy 💜</h1>
+    
+<div class="stickers">🦋　🌷　✨　☁️　💜　🌸</div>
+
+
     <button id="themeToggle" onclick="toggleTheme()">
   🌙 Dark Mode
 </button>
