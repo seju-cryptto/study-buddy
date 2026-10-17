@@ -117,6 +117,42 @@
       <button id="addButton">Add +</button>
 
       <ul id="taskList"></ul>
+      <hr style="margin: 25px 0; border: 1px solid #eee5ff;">
+
+<h2>📝 My Notes</h2>
+<p>Choose a subject and write your notes!</p>
+
+<select id="noteSubject">
+  <option value="Physics">Physics</option>
+  <option value="Chemistry">Chemistry</option>
+  <option value="Maths">Maths</option>
+  <option value="English">English</option>
+  <option value="Computer Science">Computer Science</option>
+</select>
+
+<br><br>
+
+<input
+  type="text"
+  id="noteTitle"
+  placeholder="Note title..."
+  style="width: 90%; padding: 10px;"
+>
+
+<br><br>
+
+<textarea
+  id="noteContent"
+  placeholder="Write your notes here..."
+  rows="6"
+  style="width: 90%; padding: 10px; border-radius: 10px;"
+></textarea>
+
+<br><br>
+
+<button onclick="saveNote()">Save Note 💜</button>
+
+<div id="savedNotes"></div>
       <p id="taskCount">Tasks remaining: 0</p>
       <div style="margin-top: 18px;">
   <p id="progressText">Daily Progress: 0%</p>
@@ -230,5 +266,69 @@ document.getElementById("progressBar").style.width =
           messages[index];
       });
   </script>
+  function saveNote() {
+  const subject = document.getElementById("noteSubject").value;
+  const title = document.getElementById("noteTitle").value.trim();
+  const content = document.getElementById("noteContent").value.trim();
+
+  if (!title || !content) {
+    alert("Please enter a note title and content!");
+    return;
+  }
+
+  const notes = JSON.parse(localStorage.getItem("studyBuddyNotes") || "[]");
+
+  notes.push({
+    subject: subject,
+    title: title,
+    content: content
+  });
+
+  localStorage.setItem("studyBuddyNotes", JSON.stringify(notes));
+
+  displayNotes();
+
+  document.getElementById("noteTitle").value = "";
+  document.getElementById("noteContent").value = "";
+}
+
+function displayNotes() {
+  const notes = JSON.parse(localStorage.getItem("studyBuddyNotes") || "[]");
+  const savedNotes = document.getElementById("savedNotes");
+
+  savedNotes.innerHTML = "";
+
+  notes.forEach(function(note, index) {
+    const card = document.createElement("div");
+    card.style.cssText =
+      "background:#f5f0ff;padding:12px;margin:12px 0;border-radius:12px;";
+
+    const heading = document.createElement("h3");
+    heading.textContent = note.title + " — " + note.subject;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = note.content;
+    paragraph.style.whiteSpace = "pre-wrap";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete 🗑️";
+
+    deleteButton.onclick = function() {
+      const updatedNotes = JSON.parse(
+        localStorage.getItem("studyBuddyNotes") || "[]"
+      );
+      updatedNotes.splice(index, 1);
+      localStorage.setItem("studyBuddyNotes", JSON.stringify(updatedNotes));
+      displayNotes();
+    };
+
+    card.appendChild(heading);
+    card.appendChild(paragraph);
+    card.appendChild(deleteButton);
+    savedNotes.appendChild(card);
+  });
+}
+
+displayNotes();
 </body>
 </html>
