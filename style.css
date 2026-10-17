@@ -79,3 +79,55 @@ section, .card, .task, .todo-card {
   background: #e4d4fa;
   color: #49365f;
 }
+
+/* 🎀 Pinterest-inspired StudyBuddy makeover */
+
+body {
+  background:
+    radial-gradient(ellipse at top left, #f0e5ff 0%, transparent 45%),
+    #fcf9ff;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: -1px;
+  text-shadow: 2px 3px 0 #eadcf8;
+}
+
+h2 {
+  border-bottom: 2px solid #f0e5fa;
+  padding-bottom: 10px;
+}
+
+section, .card, .task, .todo-card {
+  border-radius: 24px;
+  border: 1px solid #f0e4f8;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 25px rgba(139, 101, 181, 0.09);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+section:hover, .card:hover, .task:hover, .todo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(139, 101, 181, 0.16);
+}
+
+button {
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px #b69add35;
+}
+
+button:hover {
+  box-shadow: 0 7px 18px #b69add55;
+}
+
+img {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+a {
+  font-weight: 600;
+}
+
