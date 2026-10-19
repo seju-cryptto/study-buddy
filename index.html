@@ -273,6 +273,21 @@ h1 {
       <p>Today's date: <span id="today"></span></p>
     </section>
 
+<section class="card secret-diary">
+  <h2>📔 My Secret Diary 🎀</h2>
+  <p>✨ A little space just for my thoughts ✨</p>
+
+  <input type="date" id="diaryDate">
+
+  <textarea id="diaryEntry"
+    placeholder="Dear Diary... 💌 Write your thoughts here..."
+    rows="6"></textarea>
+
+  <button onclick="saveDiary()">💗 Save My Diary</button>
+
+  <div id="diaryMessage"></div>
+</section>
+
     <section class="card">
       <h2>📚 My Study Tasks</h2>
 
@@ -453,6 +468,23 @@ function loadTheme() {
 loadTheme();
  <script>
   function saveNote() {
+    
+function saveDiary() {
+  const date = document.getElementById("diaryDate").value;
+  const entry = document.getElementById("diaryEntry").value;
+
+  if (!date || !entry.trim()) {
+    document.getElementById("diaryMessage").textContent =
+      "🌷 Please add a date and your thoughts!";
+    return;
+  }
+
+  localStorage.setItem("diary_" + date, entry);
+
+  document.getElementById("diaryMessage").textContent =
+    "💗 Your diary entry is saved!";
+}
+
   const subject = document.getElementById("noteSubject").value;
   const title = document.getElementById("noteTitle").value.trim();
   const content = document.getElementById("noteContent").value.trim();
