@@ -585,5 +585,75 @@ function resetTimer() {
 updateTimer();
 </script>
 
+<!-- 💜 StudyBuddy Pomodoro Timer -->
+<section class="card" id="pomodoro">
+  <h2>⏳ My Study Timer</h2>
+  <p id="timerMode">📚 Time to Focus!</p>
+
+  <h1 id="timerDisplay">25:00</h1>
+
+  <button onclick="startTimer()">▶️ Start</button>
+  <button onclick="pauseTimer()">⏸️ Pause</button>
+  <button onclick="resetTimer()">🔄 Reset</button>
+  <button onclick="setBreak()">☕ Break (5 min)</button>
+</section>
+
+<script>
+let timeLeft = 25 * 60;
+let timerInterval = null;
+
+function updateDisplay() {
+  const mins = Math.floor(timeLeft / 60);
+  const secs = timeLeft % 60;
+
+  document.getElementById("timerDisplay").textContent =
+    String(mins).padStart(2, "0") + ":" +
+    String(secs).padStart(2, "0");
+}
+
+function startTimer() {
+  if (timerInterval !== null) return;
+
+  document.getElementById("timerMode").textContent =
+    "💜 You're doing great!";
+
+  timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateDisplay();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById("timerMode").textContent =
+        "🎉 Time's up! Take a little break!";
+      alert("🎉 Timer complete!");
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer() {
+  pauseTimer();
+  timeLeft = 25 * 60;
+  document.getElementById("timerMode").textContent =
+    "📚 Time to Focus!";
+  updateDisplay();
+}
+
+function setBreak() {
+  pauseTimer();
+  timeLeft = 5 * 60;
+  document.getElementById("timerMode").textContent =
+    "☕ Break Time!";
+  updateDisplay();
+}
+
+updateDisplay();
+</script>
+
 </body>
 </html>
