@@ -238,6 +238,28 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
   .row-fields,.pin-grid { grid-template-columns:1fr; }
   .card { padding:16px; }
 }
+
+/* 👽 Cute Alien Animation */
+.alien-friend {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  font-size: 48px;
+  cursor: pointer;
+  animation: alienFloat 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px #b99aff);
+}
+
+@keyframes alienFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(5deg);
+  }
+}
+
 </style>
 </head>
 
@@ -1104,5 +1126,10 @@ function enterStudyBuddy() {
 }
 
 </script>
+
+<div class="alien-friend" onclick="alienTakeover()" title="Click your alien friend!">
+  👽
+</div>
+
 </body>
 </html>
