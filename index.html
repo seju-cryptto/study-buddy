@@ -242,6 +242,28 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
 </head>
 
 <body>
+  
+<!-- 🌷 StudyBuddy Mood Welcome Screen -->
+<div id="moodWelcome" class="mood-welcome">
+  <div class="mood-card">
+    <div style="font-size: 45px;">🌷</div>
+    <h1>Welcome to StudyBuddy 💜</h1>
+    <p>How are you feeling today?</p>
+
+    <div class="mood-options">
+      <button onclick="selectMood('Happy 🥰')">🥰 Happy</button>
+      <button onclick="selectMood('Tired 😴')">😴 Tired</button>
+      <button onclick="selectMood('Stressed 😰')">😰 Stressed</button>
+      <button onclick="selectMood('Unmotivated 🌧️')">🌧️ Unmotivated</button>
+    </div>
+
+    <p id="moodMessage">Every feeling is welcome here. ✨</p>
+    <button class="enter-studybuddy" onclick="enterStudyBuddy()">
+      Enter My StudyBuddy ✨
+    </button>
+  </div>
+</div>
+
 <header>
   <h1 class="brand-title">🌷 Welcome to StudyBuddy 💜</h1>
   <div class="stickers">🦋　🌷　✨　☁️　💜　🌸</div>
@@ -511,6 +533,82 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
     border-radius: 20px;
     transition: width 0.4s ease;
   }
+
+/* 🌷 StudyBuddy Mood Welcome Screen */
+.mood-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(248, 245, 255, 0.97);
+  overflow-y: auto;
+}
+
+.mood-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 30px 22px;
+  text-align: center;
+  background: #fffaff;
+  border: 2px dashed #c9b5f5;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(148, 112, 216, 0.18);
+}
+
+.mood-card h1 {
+  color: #9470d8;
+  font-size: 27px;
+  margin: 12px 0;
+}
+
+.mood-card p {
+  color: #75648d;
+  line-height: 1.6;
+}
+
+.mood-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.mood-options button {
+  padding: 14px 8px;
+  border: 1px solid #e3d6ff;
+  border-radius: 16px;
+  background: #f4edff;
+  color: #7254a8;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.mood-options button:hover {
+  background: #e8dcff;
+  transform: translateY(-2px);
+}
+
+.enter-studybuddy {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 18px;
+  background: #9470d8;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .mood-options {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 
 </main>
@@ -925,6 +1023,41 @@ function updateStudyAnalytics() {
 }
 
 document.addEventListener('DOMContentLoaded', updateStudyAnalytics);
+
+function selectMood(mood) {
+  const messages = {
+    "Happy 🥰": "Yay! Keep that beautiful energy going! ✨",
+    "Tired 😴": "Take it gently today. Small steps are enough. ☁️",
+    "Stressed 😰": "One thing at a time. You don't have to do everything at once. 💜",
+    "Unmotivated 🌧️": "You don't need to feel ready. Just start with one tiny step. 🌷"
+  };
+
+  const message = document.getElementById("moodMessage");
+  if (message) {
+    message.textContent = messages[mood] || "Every feeling is welcome here. 💜";
+  }
+
+  document.querySelectorAll(".mood-options button").forEach(button => {
+    button.style.outline = "none";
+    button.style.boxShadow = "none";
+  });
+
+  const selected = Array.from(
+    document.querySelectorAll(".mood-options button")
+  ).find(button => button.textContent.includes(mood));
+
+  if (selected) {
+    selected.style.outline = "2px solid #9470d8";
+    selected.style.boxShadow = "0 0 12px #d9c7ff";
+  }
+}
+
+function enterStudyBuddy() {
+  const welcome = document.getElementById("moodWelcome");
+  if (welcome) {
+    welcome.style.display = "none";
+  }
+}
 
 </script>
 </body>
