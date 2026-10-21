@@ -281,6 +281,22 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
     <p>Make today count, one little step at a time. 💗</p>
   </section>
 
+<section class="card secret-door-card">
+  <h2>🚪 A Little Mystery...</h2>
+  <p>Psst... have you noticed this tiny door?</p>
+
+  <button class="secret-door" onclick="openSecretDoor()">
+    🚪 Knock, knock!
+  </button>
+
+  <div id="secretRoom" style="display:none;">
+    <h3>✨ YOU FOUND THE SECRET ROOM!</h3>
+    <p>Welcome to StudyBuddy's hidden world. 💜</p>
+    <p>👽 An alien might visit you soon...</p>
+    <button onclick="closeSecretDoor()">Close the door 🚪</button>
+  </div>
+</section>
+
   <section class="card timer-card">
     <h2>⏳ My Study Timer</h2>
     <p id="timerMode">📚 Time to Focus!</p>
@@ -611,6 +627,14 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
 
 </style>
 
+<section class="card alien-card">
+  <h2>👽 Alien Takeover!</h2>
+  <p>A tiny alien has landed in StudyBuddy...</p>
+  <button onclick="alienTakeover()">
+    🛸 Meet the Alien
+  </button>
+</section>
+
 </main>
 
 <footer>Made with 💜 for your dreams. Keep growing, one step at a time 🌷</footer>
@@ -888,6 +912,26 @@ function saveDiary() {
 
   localStorage.setItem('diary_'+date,entry);
   $('diaryMessage').textContent = '💗 Your diary entry is saved in this browser!';
+}
+
+function openSecretDoor() {
+  document.getElementById('secretRoom').style.display = 'block';
+}
+
+function closeSecretDoor() {
+  document.getElementById('secretRoom').style.display = 'none';
+}
+
+function alienTakeover() {
+  const messages = [
+    "👽 EXCUSE ME! WHO ORDERED THIS MUCH HOMEWORK?!",
+    "🛸 Your alien assistant has landed. Carry on, human!",
+    "👾 I came for snacks... why are there so many textbooks?",
+    "🚨 ALIEN ALERT! Your StudyBuddy has been invaded!",
+    "👽 Human, remember to drink water and stretch!"
+  ];
+
+  alert(messages[Math.floor(Math.random() * messages.length)]);
 }
 
 function loadDiary() {
