@@ -1,767 +1,811 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudyBuddy 💜</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBuddy 💜</title>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
-    :root {
-  --bg: #fcfaff;
-  --card: #ffffff;
-  --text: #403653;
-  --accent: #a88be3;
-  --soft: #f0e8ff;
-  --border: #e7dcfa;
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&display=swap');
+
+:root {
+  --bg:#fcfaff; --card:#ffffff; --text:#403653; --muted:#786b8b;
+  --accent:#a88be3; --accent-dark:#8665c2; --soft:#f3ecff;
+  --border:#e7dcfa; --shadow:0 7px 22px #c9b6e82b;
 }
+* { box-sizing:border-box; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Nunito", sans-serif;
-  transition: background 0.3s ease, color 0.3s ease;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Nunito",sans-serif;
+  transition:background .25s,color .25s;
 }
-
-h1, h2, h3 {
-  font-family: "Quicksand", sans-serif;
-  color: var(--text);
+body.dark-mode {
+  --bg:#1e1930; --card:#2b2340; --text:#f5edff; --muted:#c9b9df;
+  --accent:#b99ae8; --accent-dark:#9a79d4; --soft:#382b50;
+  --border:#514267; --shadow:0 7px 22px #08051255;
 }
-
-button {
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 14px;
-  padding: 10px 18px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+header {
+  padding:24px 18px 20px;
+  text-align:center;
+  background:var(--card);
+  border-bottom:2px solid var(--border);
 }
+h1,h2,h3 { font-family:"Quicksand",sans-serif; }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px #a88be344;
+.brand-title {
+  max-width:850px;
+  margin:0 auto 14px;
+  padding:18px 14px;
+  border:2px solid var(--border);
+  border-radius:25px;
+  background:linear-gradient(135deg,#f0e6ff,#fff0f8,#eee8ff);
+  color:#8064b5;
+  font-size:clamp(25px,4vw,38px);
+  box-shadow:0 8px 25px #bba0e633;
 }
-
-input, textarea, select {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-family: inherit;
-  color: var(--text);
-  background: var(--card);
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-#taskList li, #savedNotes >
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f8f5ff;
-      color: #42365c;
-    }
-
-    header {
-      background: white;
-      padding: 22px;
-      text-align: center;
-      border-bottom: 2px solid #e9ddff;
-    }
-
-    header h1 {
-      color: #9470d8;
-      margin: 0;
-    }
-
-    header p {
-      margin-bottom: 0;
-      color: #776a8e;
-    }
-
-    main {
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 0 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      margin-bottom: 20px;
-      border-radius: 18px;
-      box-shadow: 0 4px 15px #d9cafa55;
-    }
-
-    h2 {
-      color: #8b68ca;
-      margin-top: 0;
-    }
-
-    input {
-      padding: 12px;
-      border: 1px solid #d7c6f5;
-      border-radius: 10px;
-      width: 70%;
-      font-size: 15px;
-    }
-
-    button {
-      padding: 12px 16px;
-      border: none;
-      border-radius: 10px;
-      background: #a88be3;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    button:hover {
-      background: #8b68ca;
-    }
-
-    li {
-      padding: 9px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .done {
-      text-decoration: line-through;
-      color: #9c91aa;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #887a9d;
-    }body.dark-mode {body.dark-mode {
-  background-color: #1e1930 !important;
-  color: #f5edff !important;
-}
-
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode p,
-body.dark-mode label {
-  color: #f5edff;
-}
-  --bg: #1e1930;
-  --card: #2b2340;
-  --text: #f5edff;
-  --accent: #a88be3;
-  --soft: #382b50;
-  --border: #514267;
-}
-
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-  color: var(--text);
-  background: var(--card);
-  border-color: var(--border);
-}
-
-body.dark-mode #taskList li,
-body.dark-mode #savedNotes > div {
-  background: var(--card);
-  border-color: var(--border);
+body.dark-mode .brand-title {
+  background:linear-gradient(135deg,#382b50,#39273e,#302748);
+  color:#f5edff;
 }
 .stickers {
-  font-size: 28px;
-  text-align: center;
-  padding: 15px;
-  margin: 12px auto;
-  background: linear-gradient(135deg, #f5edff, #fff5fb);
-  border: 2px solid #e7dcfa;
-  border-radius: 25px;
-  box-shadow: 0 5px 18px #c8b4f555;
-  animation: floaty 3s ease-in-out infinite;
+  max-width:600px;
+  margin:12px auto;
+  padding:12px;
+  border:2px solid var(--border);
+  border-radius:22px;
+  background:linear-gradient(135deg,#f5edff,#fff5fb);
+  font-size:25px;
+  animation:floaty 3s ease-in-out infinite;
 }
-
 @keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%,100% { transform:translateY(0) }
+  50% { transform:translateY(-4px) }
 }
+header p { margin:10px 0 0; color:var(--muted); }
 
-h1 {
-  text-align: center;
-  color: #8064b5;
-  font-size: 36px;
-  padding: 25px 15px;
-  margin: 20px 0;
-  background: linear-gradient(135deg, #f0e6ff, #fff0f8, #eee8ff);
-  border: 2px solid #e2d4fa;
-  border-radius: 25px;
-  box-shadow: 0 8px 25px #bba0e655;
+button {
+  border:0;
+  border-radius:12px;
+  padding:10px 15px;
+  background:var(--accent);
+  color:white;
+  font:700 14px "Nunito",sans-serif;
+  cursor:pointer;
+  transition:transform .15s,box-shadow .15s,background .15s;
 }
+button:hover {
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px #a88be344;
+  background:var(--accent-dark);
+}
+button.secondary {
+  background:var(--soft);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+button.danger { background:#e7a5b7; color:#542638; }
 
-/* 🌷 StudyBuddy pastel dashboard */
+main { max-width:1200px; margin:25px auto; padding:0 18px; }
+
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  align-items: start;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+  align-items:start;
 }
-
-.dashboard-grid > .card {
-  margin: 0;
-  min-width: 0;
-  border: 2px solid #eee3ff;
-  border-radius: 22px;
-  box-shadow: 0 6px 18px #c9b6e822;
+.card {
+  min-width:0;
+  padding:21px;
+  margin:0;
+  background:var(--card);
+  border:2px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
 }
-
-.dashboard-grid textarea,
-.dashboard-grid input {
-  max-width: 100%;
-  box-sizing: border-box;
+.card h2 {
+  margin:0 0 10px;
+  color:var(--accent-dark);
+  font-size:22px;
 }
+.card p { line-height:1.55; }
+.wide { grid-column:1/-1; }
 
-@media (max-width: 650px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+.mini-label {
+  display:block;
+  margin:12px 0 5px;
+  font-weight:800;
+  font-size:13px;
+  color:var(--muted);
 }
-
-  </style>
-<style>
-#pomodoro {
-  background: linear-gradient(135deg, #f5edff, #ffffff);
-  border: 2px solid #e4d5ff;
-  border-radius: 22px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 8px 24px rgba(155, 120, 210, 0.15);
-  margin: 25px 0;
+input,textarea,select {
+  display:block;
+  width:100%;
+  max-width:100%;
+  padding:11px 12px;
+  margin:6px 0 10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  font:500 14px "Nunito",sans-serif;
 }
-
-#pomodoro h2 {
-  color: #8055b8;
-  font-size: 26px;
+textarea { resize:vertical; }
+input:focus,textarea:focus,select:focus {
+  outline:2px solid #cbb5f4;
+  outline-offset:1px;
 }
-
-#timerDisplay {
-  color: #8055b8;
-  font-size: 54px;
-  margin: 20px 0;
-  font-weight: bold;
-  font-variant-numeric: tabular-nums;
+.row-fields {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
 }
-
-#timerMode {
-  color: #9675bd;
-  font-size: 16px;
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
 }
+ul { padding-left:20px; }
+li { margin:8px 0; overflow-wrap:anywhere; }
 
-#pomodoro button {
-  background: #b99ae8;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 11px 16px;
-  margin: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
+.task-item {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--soft);
 }
+.task-item span { flex:1; cursor:pointer; overflow-wrap:anywhere; }
+.done { text-decoration:line-through; opacity:.65; }
 
-#pomodoro button:hover {
-  background: #9671d1;
-  transform: translateY(-2px);
+.progress-track {
+  background:var(--soft);
+  border-radius:20px;
+  height:14px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+.progress-fill {
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#a88be3,#e5a8c9);
+  transition:width .25s;
+}
+.note-card,.planner-item,.diary-history-item {
+  background:var(--soft);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  margin:10px 0;
+  overflow-wrap:anywhere;
+}
+.note-card p { white-space:pre-wrap; }
+.status-pill {
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:12px;
+  margin:4px 4px 4px 0;
+}
+.timer-card {
+  text-align:center;
+  background:linear-gradient(135deg,var(--soft),var(--card));
+}
+.timer-display {
+  font-size:clamp(42px,7vw,60px);
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  color:var(--accent-dark);
+  margin:16px 0;
+}
+.pin-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.pin-card {
+  padding:15px;
+  border-radius:17px;
+  border:1px dashed #d5c3ed;
+  color:#514266;
+}
+.pin-card h3 { margin:8px 0 4px; }
+.pin-card p { margin:5px 0; }
+.pin-lavender { background:#f0e8ff; }
+.pin-cream { background:#fff5df; }
+.pin-pink { background:#fff0f6; }
+.pin-blue { background:#eaf5ff; }
+.pin-green { background:#eaf8ee; }
+.pin-peach { background:#fff0e7; }
+.pin-tag { font-size:12px; opacity:.8; }
+.message { color:var(--accent-dark); font-weight:800; min-height:20px; }
+footer { text-align:center; padding:24px; color:var(--muted); }
+hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
+
+@media(max-width:760px) {
+  .dashboard-grid { grid-template-columns:1fr; }
+  .wide { grid-column:auto; }
+  .pin-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:430px) {
+  .row-fields,.pin-grid { grid-template-columns:1fr; }
+  .card { padding:16px; }
 }
 </style>
-
 </head>
 
 <body>
-  <header>
-    
-<h1>🌷 Welcome to StudyBuddy 💜</h1>
-    
-<div class="stickers">🦋　🌷　✨　☁️　💜　🌸</div>
+<header>
+  <h1 class="brand-title">🌷 Welcome to StudyBuddy 💜</h1>
+  <div class="stickers">🦋　🌷　✨　☁️　💜　🌸</div>
+  <button id="themeToggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+  <p>Your little space to study, plan and grow ✨</p>
+</header>
 
+<main>
+<div class="dashboard-grid">
 
-    <button id="themeToggle" onclick="toggleTheme()">
-  🌙 Dark Mode
-</button>
-    <p>Your little space to study, plan and grow ✨</p>
-  </header>
+  <section class="card">
+    <h2>🌷 Welcome, Student!</h2>
+    <p>Small steps every day lead to big dreams.</p>
+    <p>Today's date: <strong id="today"></strong></p>
+    <p>Make today count, one little step at a time. 💗</p>
+  </section>
 
-  <main>
-    <div class="dashboard">
-    <section class="card">
-      <h2>🌷 Welcome, Student!</h2>
-      <p>Small steps every day lead to big dreams.</p>
-      <p>Today's date: <span id="today"></span></p>
-    </section>
+  <section class="card timer-card">
+    <h2>⏳ My Study Timer</h2>
+    <p id="timerMode">📚 Time to Focus!</p>
+    <div id="timerDisplay" class="timer-display">25:00</div>
+    <div class="actions" style="justify-content:center">
+      <button onclick="startTimer()">▶️ Start</button>
+      <button onclick="pauseTimer()" class="secondary">⏸️ Pause</button>
+      <button onclick="resetTimer()" class="secondary">🔄 Reset</button>
+      <button onclick="setBreak()" class="secondary">☕ Break (5 min)</button>
+    </div>
+  </section>
 
-<section class="card secret-diary">
-  <h2>📔 My Secret Diary 🎀</h2>
-  <p>✨ A little space just for my thoughts ✨</p>
+  <section class="card">
+    <h2>📚 My Study Tasks</h2>
+    <p>Add today's to-dos. Tap a task to mark it complete.</p>
+    <form id="taskForm">
+      <label class="mini-label" for="taskInput">New task</label>
+      <input id="taskInput" type="text" placeholder="e.g. Revise Newton's laws" maxlength="180">
+      <button type="submit">Add task +</button>
+    </form>
+    <ul id="taskList" style="list-style:none;padding:0"></ul>
+    <p id="taskCount">Tasks remaining: 0</p>
+    <p id="progressText">Daily Progress: 0%</p>
+    <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+  </section>
 
-  <input type="date" id="diaryDate">
+  <section class="card">
+    <h2>📅 Smart Study Planner</h2>
+    <p>Plan what to study, choose a date and track each topic's progress.</p>
+    <form id="plannerForm">
+      <label class="mini-label" for="plannerSubject">Subject</label>
+      <select id="plannerSubject" required>
+        <option>Physics</option>
+        <option>Chemistry</option>
+        <option>Maths</option>
+        <option>English</option>
+        <option>Computer Science</option>
+        <option>Other</option>
+      </select>
 
-  <textarea id="diaryEntry"
-    placeholder="Dear Diary... 💌 Write your thoughts here..."
-    rows="6"></textarea>
+      <label class="mini-label" for="plannerTopic">Chapter / study task</label>
+      <input id="plannerTopic" required maxlength="180" placeholder="e.g. Laws of Motion numericals">
 
-  <button onclick="saveDiary()">💗 Save My Diary</button>
+      <div class="row-fields">
+        <div>
+          <label class="mini-label" for="plannerDate">Study date</label>
+          <input id="plannerDate" type="date" required>
+        </div>
+        <div>
+          <label class="mini-label" for="plannerDuration">Time goal</label>
+          <select id="plannerDuration">
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60" selected>1 hour</option>
+            <option value="90">1.5 hours</option>
+            <option value="120">2 hours</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit">Add to my plan ✨</button>
+    </form>
 
-  <div id="diaryMessage"></div>
-</section>
+    <hr>
+    <div class="row-fields">
+      <div>
+        <label class="mini-label" for="plannerFilterDate">Show date</label>
+        <input id="plannerFilterDate" type="date">
+      </div>
+      <div>
+        <label class="mini-label" for="plannerFilterSubject">Show subject</label>
+        <select id="plannerFilterSubject">
+          <option value="All">All subjects</option>
+          <option>Physics</option>
+          <option>Chemistry</option>
+          <option>Maths</option>
+          <option>English</option>
+          <option>Computer Science</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <p id="plannerSummary" class="message">Your plan will appear here 🌷</p>
+    <div id="plannerList"></div>
+  </section>
 
-    <section class="card">
-      <h2>📚 My Study Tasks</h2>
+  <section class="card">
+    <h2>📝 My Subject Notes</h2>
+    <p>Save useful notes for each subject.</p>
+    <label class="mini-label" for="noteSubject">Subject</label>
+    <select id="noteSubject">
+      <option>Physics</option>
+      <option>Chemistry</option>
+      <option>Maths</option>
+      <option>English</option>
+      <option>Computer Science</option>
+    </select>
+    <label class="mini-label" for="noteTitle">Note title</label>
+    <input id="noteTitle" type="text" placeholder="e.g. Important formulas" maxlength="120">
+    <label class="mini-label" for="noteContent">Your notes</label>
+    <textarea id="noteContent" placeholder="Write your notes here..." rows="5"></textarea>
+    <button onclick="saveNote()">Save Note 💜</button>
+    <div id="savedNotes"></div>
+  </section>
 
-      <input id="taskInput"
-        type="text"
-        placeholder="Enter a study task...">
+  <section class="card">
+    <h2>📔 My Secret Diary 🎀</h2>
+    <p>A little space just for your thoughts. Entries are saved in this browser on this device.</p>
+    <label class="mini-label" for="diaryDate">Diary date</label>
+    <input type="date" id="diaryDate">
+    <label class="mini-label" for="diaryEntry">Dear Diary...</label>
+    <textarea id="diaryEntry" placeholder="Write your thoughts here... 💌" rows="5"></textarea>
+    <div class="actions">
+      <button onclick="saveDiary()">💗 Save My Diary</button>
+      <button class="secondary" onclick="loadDiary()">Load selected date</button>
+    </div>
+    <p id="diaryMessage" class="message"></p>
+  </section>
 
-      <button id="addButton">Add +</button>
+  <section class="card">
+    <h2>🌟 Daily Motivation</h2>
+    <p>You don't have to be perfect. Just keep showing up for your dreams! 💜</p>
+    <button id="motivateButton">Motivate me ✨</button>
+    <p id="motivation" class="message" aria-live="polite"></p>
+  </section>
 
-      <ul id="taskList"></ul>
-      <hr style="margin: 25px 0; border: 1px solid #eee5ff;">
+  <section class="card wide">
+    <h2>🎀 Your Little Inspiration Corner</h2>
+    <p>Romanticize your study life ✨</p>
+    <div class="pin-grid">
+      <article class="pin-card pin-lavender">
+        <span>🌷</span>
+        <h3>Little by Little</h3>
+        <p>Small steps every day lead to beautiful things.</p>
+        <span class="pin-tag">daily reminder ♡</span>
+      </article>
+      <article class="pin-card pin-cream">
+        <span>☕</span>
+        <h3>Study Date</h3>
+        <p>Make your favourite drink, open your notebook and begin.</p>
+        <span class="pin-tag">cozy vibes</span>
+      </article>
+      <article class="pin-card pin-pink">
+        <span>🎀</span>
+        <h3>Dream Big</h3>
+        <p>Be proud of every page you finish and every concept you learn.</p>
+        <span class="pin-tag">you've got this!</span>
+      </article>
+      <article class="pin-card pin-blue">
+        <span>🦋</span>
+        <h3>Today's Intention</h3>
+        <p>Focus on progress, not perfection. One task at a time.</p>
+        <span class="pin-tag">gentle motivation</span>
+      </article>
+      <article class="pin-card pin-green">
+        <span>📚</span>
+        <h3>My Study Era</h3>
+        <p>Learning today, growing tomorrow. Keep showing up for yourself.</p>
+        <span class="pin-tag">future me ♡</span>
+      </article>
+      <article class="pin-card pin-peach">
+        <span>🌙</span>
+        <h3>One More Page</h3>
+        <p>You don't need a perfect day. Just a little progress.</p>
+        <span class="pin-tag">night owl club</span>
+      </article>
+    </div>
+  </section>
 
-<h2>📝 My Notes</h2>
-<p>Choose a subject and write your notes!</p>
-
-<select id="noteSubject">
-  <option value="Physics">Physics</option>
-  <option value="Chemistry">Chemistry</option>
-  <option value="Maths">Maths</option>
-  <option value="English">English</option>
-  <option value="Computer Science">Computer Science</option>
-</select>
-
-<br><br>
-
-<input
-  type="text"
-  id="noteTitle"
-  placeholder="Note title..."
-  style="width: 90%; padding: 10px;"
->
-
-<br><br>
-
-<textarea
-  id="noteContent"
-  placeholder="Write your notes here..."
-  rows="6"
-  style="width: 90%; padding: 10px; border-radius: 10px;"
-></textarea>
-
-<br><br>
-
-<button onclick="saveNote()">Save Note 💜</button>
-
-<div id="savedNotes"></div>
-      <p id="taskCount">Tasks remaining: 0</p>
-      <div style="margin-top: 18px;">
-  <p id="progressText">Daily Progress: 0%</p>
-  <div style="background:#eee5ff;border-radius:20px;height:16px;overflow:hidden;">
-    <div id="progressBar" style="width:0%;height:100%;background:#a88be3;border-radius:20px;transition:width 0.3s;"></div>
-  </div>
 </div>
-    </section>
+</main>
 
-    <section class="card">
-      <h2>🌟 Daily Motivation</h2>
-      <p>You don't have to be perfect.
-        Just keep showing up for your dreams! 💜</p>
-      <button id="motivateButton">Motivate me ✨</button>
-      <p id="motivation"></p>
-    </section>
-  </main>
+<footer>Made with 💜 for your dreams. Keep growing, one step at a time 🌷</footer>
 
-  <footer>Made with 💜 for your dreams.</footer>
+<script>
+const $ = id => document.getElementById(id);
 
-  <script>
-    document.getElementById("today").textContent =
-      new Date().toLocaleDateString();
+const today = new Date();
 
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
-    const taskCount = document.getElementById("taskCount");
+const localDate = date => {
+  const d = new Date(date);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+};
 
-    function updateCount() {
-      const tasks = taskList.querySelectorAll("li");
-      let remaining = 0;
+$('today').textContent = today.toLocaleDateString(undefined,{
+  year:'numeric',
+  month:'long',
+  day:'numeric'
+});
 
-      tasks.forEach(function(task) {
-        if (!task.classList.contains("done")) {
-          remaining++;
-        }
-      });
+$('plannerDate').value = localDate(today);
+$('plannerFilterDate').value = localDate(today);
+$('diaryDate').value = localDate(today);
 
-      taskCount.textContent = "Tasks remaining: " + remaining;
-      const total = tasks.length;
-const completed = total - remaining;
+/* Theme */
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const dark = document.body.classList.contains('dark-mode');
+  $('themeToggle').textContent = dark ? '☀️ Light Mode' : '🌙 Dark Mode';
+  localStorage.setItem('studyBuddyTheme', dark ? 'dark' : 'light');
+}
 
-const percentage = total === 0
-  ? 0
-  : Math.round((completed / total) * 100);
+(function loadTheme(){
+  if (localStorage.getItem('studyBuddyTheme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    $('themeToggle').textContent = '☀️ Light Mode';
+  }
+})();
 
-document.getElementById("progressText").textContent =
-  "Daily Progress: " + percentage + "%";
+/* Daily tasks */
+let tasks = JSON.parse(localStorage.getItem('studyBuddyTasks') || '[]');
 
-document.getElementById("progressBar").style.width =
-  percentage + "%";
-    }
+function saveTasks() {
+  localStorage.setItem('studyBuddyTasks', JSON.stringify(tasks));
+}
 
-    function addTask() {
-      const text = taskInput.value.trim();
+function renderTasks() {
+  const list = $('taskList');
+  list.innerHTML = '';
 
-      if (text === "") {
-        alert("Please enter a study task first!");
-        return;
-      }
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+    li.className = 'task-item';
 
-      const li = document.createElement("li");
-      const label = document.createElement("span");
-      label.textContent = text;
-      label.style.cursor = "pointer";
+    const label = document.createElement('span');
+    label.textContent = task.text;
 
-      label.addEventListener("click", function() {
-        li.classList.toggle("done");
-        updateCount();
-      });
+    if (task.done) label.classList.add('done');
 
-      const removeButton = document.createElement("button");
-      removeButton.textContent = "✕";
-      removeButton.style.marginLeft = "10px";
-      removeButton.style.padding = "5px 10px";
-      removeButton.setAttribute("aria-label", "Delete " + text);
-
-      removeButton.addEventListener("click", function() {
-        li.remove();
-        updateCount();
-      });
-
-      li.appendChild(label);
-      li.appendChild(removeButton);
-      taskList.appendChild(li);
-
-      taskInput.value = "";
-      updateCount();
-    }
-
-    document.getElementById("addButton")
-      .addEventListener("click", addTask);
-
-    taskInput.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        addTask();
-      }
+    label.title = 'Tap to mark complete';
+    label.addEventListener('click', () => {
+      task.done = !task.done;
+      saveTasks();
+      renderTasks();
     });
 
-    const messages = [
-      "One chapter at a time! 💜",
-      "Your future self will thank you! 🌷",
-      "Keep going, you've got this! ✨",
-      "Every question makes you stronger! 📚"
-    ];
+    const del = document.createElement('button');
+    del.className = 'danger';
+    del.textContent = '✕';
+    del.setAttribute('aria-label','Delete task');
 
-    document.getElementById("motivateButton")
-      .addEventListener("click", function() {
-        const index = Math.floor(Math.random() * messages.length);
-        document.getElementById("motivation").textContent =
-          messages[index];
-      });function toggleTheme() {
-  document.body.classList.toggle("dark-mode");
+    del.addEventListener('click', () => {
+      tasks = tasks.filter(t => t.id !== task.id);
+      saveTasks();
+      renderTasks();
+    });
 
-  const isDark = document.body.classList.contains("dark-mode");
-
-  document.getElementById("themeToggle").textContent =
-    isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-
-  localStorage.setItem("studyBuddyTheme", isDark ? "dark" : "light");
-}
-
-function loadTheme() {
-  const savedTheme = localStorage.getItem("studyBuddyTheme");
-
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-    document.getElementById("themeToggle").textContent = "☀️ Light Mode";
-  }
-}
-
-loadTheme();
- <script>
-  function saveNote() {
-    
-function saveDiary() {
-  const date = document.getElementById("diaryDate").value;
-  const entry = document.getElementById("diaryEntry").value;
-
-  if (!date || !entry.trim()) {
-    document.getElementById("diaryMessage").textContent =
-      "🌷 Please add a date and your thoughts!";
-    return;
-  }
-
-  localStorage.setItem("diary_" + date, entry);
-
-  document.getElementById("diaryMessage").textContent =
-    "💗 Your diary entry is saved!";
-}
-
-  const subject = document.getElementById("noteSubject").value;
-  const title = document.getElementById("noteTitle").value.trim();
-  const content = document.getElementById("noteContent").value.trim();
-
-  if (!title || !content) {
-    alert("Please enter a note title and content!");
-    return;
-  }
-
-  const notes = JSON.parse(localStorage.getItem("studyBuddyNotes") || "[]");
-
-  notes.push({
-    subject: subject,
-    title: title,
-    content: content
+    li.append(label,del);
+    list.appendChild(li);
   });
 
-  localStorage.setItem("studyBuddyNotes", JSON.stringify(notes));
+  const remaining = tasks.filter(t => !t.done).length;
+  const completed = tasks.length - remaining;
+  const percent = tasks.length ? Math.round(completed/tasks.length*100) : 0;
 
+  $('taskCount').textContent = `Tasks remaining: ${remaining}`;
+  $('progressText').textContent = `Daily Progress: ${percent}%`;
+  $('progressBar').style.width = percent + '%';
+}
+
+$('taskForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const text = $('taskInput').value.trim();
+  if (!text) return alert('Please enter a study task first!');
+
+  tasks.push({
+    id:Date.now()+Math.random(),
+    text,
+    done:false
+  });
+
+  saveTasks();
+  renderTasks();
+  $('taskInput').value = '';
+});
+
+renderTasks();
+
+/* Smart Study Planner */
+let plans = JSON.parse(localStorage.getItem('studyBuddyPlans') || '[]');
+
+function savePlans() {
+  localStorage.setItem('studyBuddyPlans',JSON.stringify(plans));
+}
+
+function renderPlans() {
+  const dateFilter = $('plannerFilterDate').value;
+  const subjectFilter = $('plannerFilterSubject').value;
+
+  const shown = plans.filter(p =>
+    (!dateFilter || p.date === dateFilter) &&
+    (subjectFilter === 'All' || p.subject === subjectFilter)
+  ).sort((a,b) => a.date.localeCompare(b.date));
+
+  $('plannerList').innerHTML = '';
+
+  const totalMinutes = shown
+    .filter(p => p.status !== 'Completed')
+    .reduce((sum,p) => sum + Number(p.duration),0);
+
+  $('plannerSummary').textContent =
+    `${shown.length} planned item(s) • ${Math.round(totalMinutes/60*10)/10} hour(s) left for the selected view`;
+
+  if (!shown.length) {
+    const empty = document.createElement('p');
+    empty.textContent = 'No plans for this view yet. Add one above! 🌷';
+    $('plannerList').appendChild(empty);
+    return;
+  }
+
+  shown.forEach(plan => {
+    const card = document.createElement('div');
+    card.className = 'planner-item';
+
+    const title = document.createElement('strong');
+    title.textContent = plan.topic;
+
+    const meta = document.createElement('p');
+    meta.textContent = `${plan.subject} • ${plan.date} • ${plan.duration} minutes`;
+
+    const status = document.createElement('span');
+    status.className = 'status-pill';
+    status.textContent = plan.status;
+
+    const select = document.createElement('select');
+    select.setAttribute('aria-label','Update plan status');
+
+    ['Not started','In progress','Completed'].forEach(s => {
+      const o = document.createElement('option');
+      o.value = s;
+      o.textContent = s;
+      select.appendChild(o);
+    });
+
+    select.value = plan.status;
+
+    select.addEventListener('change', () => {
+      plan.status = select.value;
+      savePlans();
+      renderPlans();
+    });
+
+    const del = document.createElement('button');
+    del.className = 'danger';
+    del.textContent = 'Delete';
+
+    del.addEventListener('click', () => {
+      plans = plans.filter(p => p.id !== plan.id);
+      savePlans();
+      renderPlans();
+    });
+
+    card.append(title,meta,status,select,del);
+    $('plannerList').appendChild(card);
+  });
+}
+
+$('plannerForm').addEventListener('submit',e => {
+  e.preventDefault();
+
+  const topic = $('plannerTopic').value.trim();
+  if (!topic) return;
+
+  plans.push({
+    id:Date.now()+Math.random(),
+    subject:$('plannerSubject').value,
+    topic,
+    date:$('plannerDate').value,
+    duration:Number($('plannerDuration').value),
+    status:'Not started'
+  });
+
+  savePlans();
+  $('plannerTopic').value = '';
+  renderPlans();
+});
+
+$('plannerFilterDate').addEventListener('change',renderPlans);
+$('plannerFilterSubject').addEventListener('change',renderPlans);
+renderPlans();
+
+/* Subject Notes */
+function saveNote() {
+  const subject = $('noteSubject').value;
+  const title = $('noteTitle').value.trim();
+  const content = $('noteContent').value.trim();
+
+  if (!title || !content) {
+    alert('Please enter a note title and content!');
+    return;
+  }
+
+  const notes = JSON.parse(localStorage.getItem('studyBuddyNotes') || '[]');
+  notes.push({subject,title,content});
+  localStorage.setItem('studyBuddyNotes',JSON.stringify(notes));
+
+  $('noteTitle').value = '';
+  $('noteContent').value = '';
   displayNotes();
-
-  document.getElementById("noteTitle").value = "";
-  document.getElementById("noteContent").value = "";
 }
 
 function displayNotes() {
-  const notes = JSON.parse(localStorage.getItem("studyBuddyNotes") || "[]");
-  const savedNotes = document.getElementById("savedNotes");
+  const notes = JSON.parse(localStorage.getItem('studyBuddyNotes') || '[]');
+  const container = $('savedNotes');
+  container.innerHTML = '';
 
-  savedNotes.innerHTML = "";
+  notes.forEach((note,index) => {
+    const card = document.createElement('div');
+    card.className = 'note-card';
 
-  notes.forEach(function(note, index) {
-    const card = document.createElement("div");
-    card.style.cssText =
-      "background:#f5f0ff;padding:12px;margin:12px 0;border-radius:12px;";
+    const heading = document.createElement('h3');
+    heading.textContent = `${note.title} — ${note.subject}`;
 
-    const heading = document.createElement("h3");
-    heading.textContent = note.title + " — " + note.subject;
+    const p = document.createElement('p');
+    p.textContent = note.content;
 
-    const paragraph = document.createElement("p");
-    paragraph.textContent = note.content;
-    paragraph.style.whiteSpace = "pre-wrap";
+    const del = document.createElement('button');
+    del.className = 'danger';
+    del.textContent = 'Delete 🗑️';
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete 🗑️";
-
-    deleteButton.onclick = function() {
-      const updatedNotes = JSON.parse(
-        localStorage.getItem("studyBuddyNotes") || "[]"
-      );
-      updatedNotes.splice(index, 1);
-      localStorage.setItem("studyBuddyNotes", JSON.stringify(updatedNotes));
+    del.addEventListener('click',() => {
+      const current = JSON.parse(localStorage.getItem('studyBuddyNotes') || '[]');
+      current.splice(index,1);
+      localStorage.setItem('studyBuddyNotes',JSON.stringify(current));
       displayNotes();
-    };
+    });
 
-    card.appendChild(heading);
-    card.appendChild(paragraph);
-    card.appendChild(deleteButton);
-    savedNotes.appendChild(card);
+    card.append(heading,p,del);
+    container.appendChild(card);
   });
 }
 
 displayNotes();
-  
-<!-- 🌷 Pinterest-inspired StudyBuddy Corner -->
-<section class="inspiration-board">
-  <h2>🎀 Your Little Inspiration Corner</h2>
-  <p class="board-subtitle">romanticize your study life ✨</p>
 
-  <div class="pin-grid">
-    <article class="pin-card pin-lavender">
-      <span class="pin-emoji">🌷</span>
-      <h3>Little by Little</h3>
-      <p>Small steps every day lead to beautiful things.</p>
-      <span class="pin-tag">daily reminder ♡</span>
-    </article>
+/* Secret Diary */
+function saveDiary() {
+  const date = $('diaryDate').value;
+  const entry = $('diaryEntry').value;
 
-    <article class="pin-card pin-cream">
-      <span class="pin-emoji">☕</span>
-      <h3>Study Date</h3>
-      <p>Make your favourite drink, open your notebook and begin.</p>
-      <span class="pin-tag">cozy vibes</span>
-    </article>
+  if (!date || !entry.trim()) {
+    $('diaryMessage').textContent = '🌷 Please add a date and your thoughts!';
+    return;
+  }
 
-    <article class="pin-card pin-pink">
-      <span class="pin-emoji">🎀</span>
-      <h3>Dream Girl Energy</h3>
-      <p>Be proud of every page you finish and every concept you learn.</p>
-      <span class="pin-tag">you've got this!</span>
-    </article>
+  localStorage.setItem('diary_'+date,entry);
+  $('diaryMessage').textContent = '💗 Your diary entry is saved in this browser!';
+}
 
-    <article class="pin-card pin-blue">
-      <span class="pin-emoji">🦋</span>
-      <h3>Today's Intention</h3>
-      <p>Focus on progress, not perfection. One task at a time.</p>
-      <span class="pin-tag">gentle motivation</span>
-    </article>
+function loadDiary() {
+  const date = $('diaryDate').value;
 
-    <article class="pin-card pin-green">
-      <span class="pin-emoji">📚</span>
-      <h3>My Study Era</h3>
-      <p>Learning today, growing tomorrow. Keep showing up for yourself.</p>
-      <span class="pin-tag">future me ♡</span>
-    </article>
+  if (!date) {
+    $('diaryMessage').textContent = 'Choose a date first 🌷';
+    return;
+  }
 
-    <article class="pin-card pin-peach">
-      <span class="pin-emoji">🌙</span>
-      <h3>One More Page</h3>
-      <p>You don't need a perfect day. Just a little progress.</p>
-      <span class="pin-tag">night owl club</span>
-    </article>
-  </div>
-</section>
+  $('diaryEntry').value = localStorage.getItem('diary_'+date) || '';
+  $('diaryMessage').textContent = $('diaryEntry').value
+    ? 'Your saved entry is loaded 💌'
+    : 'No entry saved for this date yet.';
+}
 
-<!-- StudyBuddy Pomodoro Timer -->
-<section id="pomodoro" style="max-width:400px; margin:30px auto; padding:25px; text-align:center; background:#f4edff; border-radius:25px; color:#594477; font-family:Arial,sans-serif; box-shadow:0 5px 20px #ddcafa;">
-  <h2>⏳ Study Time</h2>
-  <p>Focus on your dreams, one minute at a time 🌷</p>
+$('diaryDate').addEventListener('change',loadDiary);
 
-  <div id="timer" style="font-size:55px; font-weight:bold; margin:20px 0;">
-    25:00
-  </div>
+/* Daily Motivation */
+const messages = [
+  'One chapter at a time! 💜',
+  'Your future self will thank you! 🌷',
+  "Keep going, you've got this! ✨",
+  'Every question makes you stronger! 📚',
+  'Progress, not perfection. You are learning! 🦋',
+  'Start small. Keep showing up. You can do this! 🎀'
+];
 
-  <button onclick="startTimer()" style="padding:10px 18px; background:#b69ae8; color:white; border:0; border-radius:12px; cursor:pointer;">▶ Start</button>
+$('motivateButton').addEventListener('click',() => {
+  let message = messages[Math.floor(Math.random()*messages.length)];
 
-  <button onclick="pauseTimer()" style="padding:10px 18px; background:#9272cc; color:white; border:0; border-radius:12px; cursor:pointer;">⏸ Pause</button>
+  if (messages.length > 1 && $('motivation').textContent === message) {
+    message = messages[(messages.indexOf(message)+1)%messages.length];
+  }
 
-  <button onclick="resetTimer()" style="padding:10px 18px; background:#e5d8fa; color:#594477; border:0; border-radius:12px; cursor:pointer;">↻ Reset</button>
+  $('motivation').textContent = message;
+});
 
-  <p id="timerMessage">You've got this! 💜</p>
-</section>
-
-<script>
-let timeLeft = 25 * 60;
+/* Study Timer */
+let timeLeft = 25*60;
 let timerInterval = null;
+let currentMode = 'focus';
 
-function updateTimer() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-
-  document.getElementById("timer").textContent =
-    String(minutes).padStart(2, "0") + ":" +
-    String(seconds).padStart(2, "0");
+function updateTimerDisplay() {
+  $('timerDisplay').textContent =
+    String(Math.floor(timeLeft/60)).padStart(2,'0') + ':' +
+    String(timeLeft%60).padStart(2,'0');
 }
 
 function startTimer() {
   if (timerInterval !== null) return;
 
-  document.getElementById("timerMessage").textContent = "You're doing amazing! 🌷";
+  $('timerMode').textContent = currentMode === 'break'
+    ? '☕ Break time — relax a little!'
+    : '💜 You are doing great!';
 
   timerInterval = setInterval(() => {
     if (timeLeft > 0) {
       timeLeft--;
-      updateTimer();
-    } else {
+      updateTimerDisplay();
+    }
+
+    if (timeLeft === 0) {
       clearInterval(timerInterval);
       timerInterval = null;
-      document.getElementById("timerMessage").textContent =
-        "Session complete! Well done! 🎉";
+
+      $('timerMode').textContent = currentMode === 'break'
+        ? '🌷 Break finished — ready to focus?'
+        : '🎉 Focus session complete! Take a little break!';
+
+      alert(currentMode === 'break'
+        ? '☕ Break finished!'
+        : '🎉 Focus session complete!');
     }
-  }, 1000);
+  },1000);
 }
 
 function pauseTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
-  document.getElementById("timerMessage").textContent = "Paused. Take your time 💜";
-}
-
-function resetTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  timeLeft = 25 * 60;
-  updateTimer();
-  document.getElementById("timerMessage").textContent = "Ready for a fresh start! 🌷";
-}
-
-updateTimer();
-</script>
-
-<!-- 💜 StudyBuddy Pomodoro Timer -->
-<section class="card" id="pomodoro">
-  <h2>⏳ My Study Timer</h2>
-  <p id="timerMode">📚 Time to Focus!</p>
-
-  <h1 id="timerDisplay">25:00</h1>
-
-  <button onclick="startTimer()">▶️ Start</button>
-  <button onclick="pauseTimer()">⏸️ Pause</button>
-  <button onclick="resetTimer()">🔄 Reset</button>
-  <button onclick="setBreak()">☕ Break (5 min)</button>
-</section>
-
-<script>
-let timeLeft = 25 * 60;
-let timerInterval = null;
-
-function updateDisplay() {
-  const mins = Math.floor(timeLeft / 60);
-  const secs = timeLeft % 60;
-
-  document.getElementById("timerDisplay").textContent =
-    String(mins).padStart(2, "0") + ":" +
-    String(secs).padStart(2, "0");
-}
-
-function startTimer() {
-  if (timerInterval !== null) return;
-
-  document.getElementById("timerMode").textContent =
-    "💜 You're doing great!";
-
-  timerInterval = setInterval(() => {
-    if (timeLeft > 0) {
-      timeLeft--;
-      updateDisplay();
-    } else {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      document.getElementById("timerMode").textContent =
-        "🎉 Time's up! Take a little break!";
-      alert("🎉 Timer complete!");
-    }
-  }, 1000);
-}
-
-function pauseTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
+  $('timerMode').textContent = '⏸️ Timer paused. You can continue anytime 💜';
 }
 
 function resetTimer() {
   pauseTimer();
-  timeLeft = 25 * 60;
-  document.getElementById("timerMode").textContent =
-    "📚 Time to Focus!";
-  updateDisplay();
+  currentMode = 'focus';
+  timeLeft = 25*60;
+  $('timerMode').textContent = '📚 Time to Focus!';
+  updateTimerDisplay();
 }
 
 function setBreak() {
   pauseTimer();
-  timeLeft = 5 * 60;
-  document.getElementById("timerMode").textContent =
-    "☕ Break Time!";
-  updateDisplay();
+  currentMode = 'break';
+  timeLeft = 5*60;
+  $('timerMode').textContent = '☕ Break Time!';
+  updateTimerDisplay();
 }
 
-updateDisplay();
+updateTimerDisplay();
 </script>
-
 </body>
 </html>
