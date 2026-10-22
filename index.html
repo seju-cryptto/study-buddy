@@ -699,6 +699,48 @@ hr { border:0; border-top:1px solid var(--border); margin:18px 0; }
   </div>
 </section>
 
+<!-- 🎯 StudyBuddy Exam Simulator -->
+<section id="examSimulator" class="study-card">
+  <h2>📝 Exam Simulator</h2>
+  <p>Practice like a topper, one question at a time! 💜</p>
+
+  <label for="examSubject">Choose your subject:</label>
+  <select id="examSubject">
+    <option value="Maths">Mathematics</option>
+    <option value="Physics">Physics</option>
+    <option value="Chemistry">Chemistry</option>
+    <option value="Computer Science">Computer Science</option>
+  </select>
+
+  <label for="examDuration">Exam duration:</label>
+  <select id="examDuration">
+    <option value="5">5 minutes</option>
+    <option value="10">10 minutes</option>
+    <option value="20">20 minutes</option>
+  </select>
+
+  <button type="button" onclick="startExam()">
+    🚀 Start My Exam
+  </button>
+
+  <div id="examArea" style="display:none;">
+    <p id="examTimer">⏱️ Time: 05:00</p>
+    <p id="examProgress"></p>
+    <h3 id="examQuestion"></h3>
+    <div id="examOptions"></div>
+
+    <button type="button" onclick="nextExamQuestion()">
+      Next Question ➜
+    </button>
+    <button type="button" onclick="finishExam()">
+      Finish Exam
+    </button>
+  </div>
+
+  <div id="examResult" style="display:none;" aria-live="polite"></div>
+</section>
+<!-- End Exam Simulator -->
+
 </main>
 
 <footer>Made with 💜 for your dreams. Keep growing, one step at a time 🌷</footer>
@@ -1190,6 +1232,272 @@ function enterStudyBuddy() {
   if (welcome) {
     welcome.style.display = "none";
   }
+}
+
+/* 🎯 StudyBuddy Exam Simulator */
+
+const examQuestions = {
+  Maths: [
+    {
+      q: "What is the value of 2³?",
+      options: ["4", "6", "8", "9"],
+      answer: 2
+    },
+    {
+      q: "What is the sum of the first 5 natural numbers?",
+      options: ["10", "15", "20", "25"],
+      answer: 1
+    },
+    {
+      q: "If x + 4 = 9, what is x?",
+      options: ["3", "4", "5", "6"],
+      answer: 2
+    }
+  ],
+  Physics: [
+    {
+      q: "What is the SI unit of force?",
+      options: ["Joule", "Newton", "Watt", "Pascal"],
+      answer: 1
+    },
+    {
+      q: "Which quantity has both magnitude and direction?",
+      options: ["Speed", "Distance", "Mass", "Velocity"],
+      answer: 3
+    },
+    {
+      q: "What is the SI unit of acceleration?",
+      options: ["m/s", "m/s²", "km/h", "Newton"],
+      answer: 1
+    }
+  ],
+  Chemistry: [
+    {
+      q: "What is the atomic number of carbon?",
+      options: ["4", "6", "8", "12"],
+      answer: 1
+    },
+    {
+      q: "Which particle has a negative charge?",
+      options: ["Proton", "Neutron", "Electron", "Nucleus"],
+      answer: 2
+    },
+    {
+      q: "What is the chemical formula of water?",
+      options: ["CO₂", "O₂", "H₂O", "NaCl"],
+      answer: 2
+    }
+  ],
+  "Computer Science": [
+    {
+      q: "Which keyword defines a function in Python?",
+      options: ["func", "define", "def", "function"],
+      answer: 2
+    },
+    {
+      q: "Which symbol starts a comment in Python?",
+      options: ["//", "#", "/*", "&"],
+      answer: 1
+    },
+    {
+      q: "Which data type stores True or False?",
+      options: ["int", "str", "float", "bool"],
+      answer: 3
+    }
+  ]
+};
+
+let examIndex = 0;
+let examScore = 0;
+let examAnswers = [];
+let examEndTime = 0;
+let examInterval = null;
+let examActive = false;
+
+function startExam() {
+  clearInterval(examInterval);
+
+  examIndex = 0;
+  examScore = 0;
+  examAnswers = [];
+  examActive = true;
+
+  const duration = Number(
+    document.getElementById("examDuration").value
+  );
+
+  examEndTime = Date.now() + duration * 60 * 1000;
+
+  document.getElementById("examArea").style.display = "block";
+  document.getElementById("examResult").style.display = "none";
+  document.getElementById("examSubject").disabled = true;
+  document.getElementById("examDuration").disabled = true;
+
+  showExamQuestion();
+  updateExamTimer();
+
+  examInterval = setInterval(updateExamTimer, 1000);
+}
+
+function showExamQuestion() {
+  const subject = document.getElementById("examSubject").value;
+  const questions = examQuestions[subject];
+
+  if (examIndex >= questions.length) {
+    finishExam();
+    return;
+  }
+
+  const question = questions[examIndex];
+
+  document.getElementById("examProgress").textContent =
+    `Question ${examIndex + 1} of ${questions.length}`;
+
+  document.getElementById("examQuestion").textContent =
+    question.q;
+
+  const optionsBox = document.getElementById("examOptions");
+  optionsBox.replaceChildren();
+
+  question.options.forEach((option, index) => {
+    const label = document.createElement("label");
+    label.style.display = "block";
+    label.style.margin = "12px 0";
+    label.style.padding = "10px";
+    label.style.borderRadius = "12px";
+    label.style.background = "#f8f5ff";
+    label.style.cursor = "pointer";
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "examAnswer";
+    radio.value = index;
+    radio.style.marginRight = "10px";
+
+    if (examAnswers[examIndex] === index) {
+      radio.checked = true;
+    }
+
+    label.append(radio, document.createTextNode(option));
+    optionsBox.appendChild(label);
+  });
+
+  const nextButton = document.querySelector(
+    "#examSimulator button[onclick='nextExamQuestion()']"
+  );
+
+  nextButton.textContent =
+    examIndex === questions.length - 1
+      ? "Submit Exam 🏆"
+      : "Next Question ➜";
+}
+
+function nextExamQuestion() {
+  if (!examActive) return;
+
+  const selected = document.querySelector(
+    'input[name="examAnswer"]:checked'
+  );
+
+  if (selected) {
+    examAnswers[examIndex] = Number(selected.value);
+  }
+
+  const subject = document.getElementById("examSubject").value;
+  const questions = examQuestions[subject];
+
+  if (examIndex < questions.length - 1) {
+    examIndex++;
+    showExamQuestion();
+  } else {
+    finishExam();
+  }
+}
+
+function updateExamTimer() {
+  if (!examActive) return;
+
+  const remaining = Math.max(
+    0,
+    Math.ceil((examEndTime - Date.now()) / 1000)
+  );
+
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+
+  document.getElementById("examTimer").textContent =
+    `⏱️ Time: ${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+  if (remaining <= 0) {
+    finishExam();
+  }
+}
+
+function finishExam() {
+  if (!examActive) return;
+
+  examActive = false;
+  clearInterval(examInterval);
+
+  const subject = document.getElementById("examSubject").value;
+  const questions = examQuestions[subject];
+
+  const selected = document.querySelector(
+    'input[name="examAnswer"]:checked'
+  );
+
+  if (selected && examIndex < questions.length) {
+    examAnswers[examIndex] = Number(selected.value);
+  }
+
+  examScore = questions.reduce((score, question, index) => {
+    return score + (
+      examAnswers[index] === question.answer ? 1 : 0
+    );
+  }, 0);
+
+  const percentage = Math.round(
+    examScore / questions.length * 100
+  );
+
+  document.getElementById("examArea").style.display = "none";
+
+  const result = document.getElementById("examResult");
+  result.style.display = "block";
+  result.style.padding = "18px";
+  result.style.marginTop = "16px";
+  result.style.borderRadius = "16px";
+  result.style.background = "#f8f5ff";
+
+  result.replaceChildren();
+
+  const heading = document.createElement("h3");
+  heading.textContent = "🏆 Your Exam Result";
+
+  const scoreText = document.createElement("p");
+  scoreText.textContent =
+    `Subject: ${subject} | Score: ${examScore}/${questions.length} (${percentage}%)`;
+
+  const message = document.createElement("p");
+  message.textContent = percentage >= 80
+    ? "Amazing work! Keep shining, topper! 💜"
+    : percentage >= 50
+      ? "Good effort! Review your mistakes and try again. 🌷"
+      : "Keep practising! Every attempt helps you improve. ✨";
+
+  const restart = document.createElement("button");
+  restart.type = "button";
+  restart.textContent = "🔄 Try Again";
+  restart.addEventListener("click", () => {
+    document.getElementById("examSubject").disabled = false;
+    document.getElementById("examDuration").disabled = false;
+    startExam();
+  });
+
+  result.append(heading, scoreText, message, restart);
+
+  document.getElementById("examSubject").disabled = false;
+  document.getElementById("examDuration").disabled = false;
 }
 
 </script>
